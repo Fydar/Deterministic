@@ -34,6 +34,27 @@ public readonly struct Fixed
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public static Fixed MaxValue { get; } = new(long.MaxValue);
 
+    /// <summary>
+    /// <para>Represents the smallest positive <see cref="Fixed"/> value that is greater than <see cref="Zero"/>.</para>
+    /// </summary>
+    /// <value><c>0.00099</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static Fixed Epsilon { get; } = new(1L);
+
+    /// <summary>
+    /// <para>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, &#960;.</para>
+    /// </summary>
+    /// <value><c>3.14159</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static Fixed Pi { get; } = new(205887L);
+
+    /// <summary>
+    /// <para>Represents the number of radians in one turn, specified by the constant, &#964;.</para>
+    /// </summary>
+    /// <value><c>6.28317</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static Fixed Tau { get; } = new(411774L);
+
     private readonly long rawValue;
 
     internal Fixed(in long rawValue)
