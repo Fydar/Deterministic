@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Fydar.Deterministic.Numerics;
 
@@ -152,7 +153,7 @@ public readonly struct FixedVector2D :
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>
     /// <param name="right">The value to compare with <paramref name="left"/>.</param>
     /// <returns><c>true</c> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-    public static bool operator ==(FixedVector2D left, FixedVector2D right)
+    public static bool operator ==(in FixedVector2D left, in FixedVector2D right)
     {
         return left.X.rawValue == right.X.rawValue
             && left.Y.rawValue == right.Y.rawValue;
@@ -164,9 +165,273 @@ public readonly struct FixedVector2D :
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>
     /// <param name="right">The value to compare with <paramref name="left"/>.</param>
     /// <returns><c>true</c> if <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-    public static bool operator !=(FixedVector2D left, FixedVector2D right)
+    public static bool operator !=(in FixedVector2D left, in FixedVector2D right)
     {
         return left.X.rawValue != right.X.rawValue
             || left.Y.rawValue != right.Y.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Computes the unary plus of a value.</para>
+    /// </summary>
+    /// <param name="value">The value for which to compute the unary plus.</param>
+    /// <returns>The unary plus of <paramref name="value"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator +(in FixedVector2D value)
+    {
+        return value;
+    }
+
+    /// <summary>
+    /// <para>Computes the unary negation of a value.</para>
+    /// </summary>
+    /// <param name="value">The value for which to compute the unary negation.</param>
+    /// <returns>The unary negation of <paramref name="value"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator -(in FixedVector2D value)
+    {
+        return new FixedVector2D(-value.X, -value.Y);
+    }
+
+    /// <summary>
+    /// <para>Adds two values together to compute their sum.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator +(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X + right.X,
+            left.Y + right.Y);
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values to compute their difference.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator -(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X - right.X,
+            left.Y - right.Y);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator *(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X * right.X,
+            left.Y * right.Y);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator *(in FixedVector2D left, in Fixed right)
+    {
+        return new FixedVector2D(
+            left.X * right,
+            left.Y * right);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator *(in Fixed left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left * right.X,
+            left * right.Y);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator *(in FixedVector2D left, in int right)
+    {
+        return new FixedVector2D(
+            left.X * right,
+            left.Y * right);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator *(in int left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left * right.X,
+            left * right.Y);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator /(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X / right.X,
+            left.Y / right.Y);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator /(in FixedVector2D left, in Fixed right)
+    {
+        return new FixedVector2D(
+            left.X / right,
+            left.Y / right);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator /(in Fixed left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left / right.X,
+            left / right.Y);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator /(in FixedVector2D left, in int right)
+    {
+        return new FixedVector2D(
+            left.X / right,
+            left.Y / right);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator /(in int left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left / right.X,
+            left / right.Y);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise **AND** operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise AND operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator &(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue & right.X.rawValue,
+            left.Y.rawValue & right.Y.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise **OR** operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise OR operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator |(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue | right.X.rawValue,
+            left.Y.rawValue | right.Y.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise **XOR** (exclusive OR) operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise XOR operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator ^(in FixedVector2D left, in FixedVector2D right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue ^ right.X.rawValue,
+            left.Y.rawValue ^ right.Y.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a **left bit shift** operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <remarks>
+    /// Shifting a fixed-point number left by 'n' bits is equivalent to multiplying the fixed-point value by 2 raised to the power of 'n'.
+    /// For example, a left shift by 1 bit effectively doubles the value.
+    /// </remarks>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift left by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the left bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator <<(in FixedVector2D left, in int right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue << right,
+            left.Y.rawValue << right);
+    }
+
+    /// <summary>
+    /// <para>Performs a **right bit shift** operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift right by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the right bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator >>(in FixedVector2D left, in int right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue >> right,
+            left.Y.rawValue >> right);
     }
 }

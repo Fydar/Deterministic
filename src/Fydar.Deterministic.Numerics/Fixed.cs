@@ -147,14 +147,312 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the unary plus of a value.</para>
+    /// </summary>
+    /// <param name="value">The value for which to compute the unary plus.</param>
+    /// <returns>The unary plus of <paramref name="value"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator +(in Fixed value)
+    {
+        return value;
+    }
+
+    /// <summary>
+    /// <para>Computes the unary negation of a value.</para>
+    /// </summary>
+    /// <param name="value">The value for which to compute the unary negation.</param>
+    /// <returns>The unary negation of <paramref name="value"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator -(in Fixed value)
+    {
+        return new Fixed(-value.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Adds two values together to compute their sum.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator +(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue + right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Adds two values together to compute their sum.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator +(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue + ((long)right << 16));
+    }
+
+    /// <summary>
+    /// <para>Adds two values together to compute their sum.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator +(in int left, in Fixed right)
+    {
+        return new Fixed(((long)left << 16) + right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values to compute their difference.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator -(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue - right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values to compute their difference.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator -(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue - ((long)right << 16));
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values to compute their difference.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator -(in int left, in Fixed right)
+    {
+        return new Fixed(((long)left << 16) - right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator *(in Fixed left, in Fixed right)
+    {
+        return new Fixed((left.rawValue * right.rawValue) >> 16);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator *(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue * right);
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator *(in int left, in Fixed right)
+    {
+        return new Fixed(left * right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator /(in Fixed left, in Fixed right)
+    {
+        return new Fixed((left.rawValue << 16) / right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator /(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue / right);
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator /(in int left, in Fixed right)
+    {
+        return new Fixed(((long)left << 32) / right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Divides two values together to compute their modulus or remainder.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The modulus or remainder of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator %(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue % right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Divides two values together to compute their modulus or remainder.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The modulus or remainder of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator %(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue % ((long)right << 16));
+    }
+
+    /// <summary>
+    /// <para>Divides two values together to compute their modulus or remainder.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The modulus or remainder of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator %(in int left, in Fixed right)
+    {
+        return new Fixed(((long)left << 16) % right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise AND operation on two <see cref="Fixed"/> values.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise AND operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator &(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue & right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise OR operation on two <see cref="Fixed"/> values.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise OR operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator |(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue | right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a bitwise XOR (exclusive OR) operation on two <see cref="Fixed"/> values.</para>
+    /// </summary>
+    /// <param name="left">The first <see cref="Fixed"/> value.</param>
+    /// <param name="right">The second <see cref="Fixed"/> value.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the bitwise XOR operation.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator ^(in Fixed left, in Fixed right)
+    {
+        return new Fixed(left.rawValue ^ right.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Performs a left bit shift operation on a <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <remarks>
+    /// Shifting a fixed-point number left by 'n' bits is equivalent to multiplying the fixed-point value by 2 raised to the power of 'n'.
+    /// For example, a left shift by 1 bit effectively doubles the value.
+    /// </remarks>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift left by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the left bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator <<(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue << right);
+    }
+
+    /// <summary>
+    /// <para>Performs a right bit shift operation on a <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <remarks>
+    /// Shifting a fixed-point number right by 'n' bits is equivalent to
+    /// dividing the fixed-point value by 2 raised to the power of 'n'.
+    /// For example, a right shift by 1 bit effectively halves the value.
+    /// Be aware that right shifts can lead to a loss of precision, as the
+    /// least significant bits (which may represent fractional data) are discarded.
+    /// </remarks>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift right by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the right bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator >>(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue >> right);
+    }
+
+    /// <summary>
     /// <para>Compares two values to determine equality.</para>
     /// </summary>
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>
     /// <param name="right">The value to compare with <paramref name="left"/>.</param>
     /// <returns><c>true</c> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-    public static bool operator ==(Fixed left, Fixed right)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator ==(in Fixed left, in Fixed right)
     {
         return left.rawValue == right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine equality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator ==(in Fixed left, in int right)
+    {
+        return left.rawValue == (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine equality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator ==(in int left, in Fixed right)
+    {
+        return (long)left << 16 == right.rawValue;
     }
 
     /// <summary>
@@ -163,9 +461,178 @@ public readonly struct Fixed :
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>
     /// <param name="right">The value to compare with <paramref name="left"/>.</param>
     /// <returns><c>true</c> if <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-    public static bool operator !=(Fixed left, Fixed right)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator !=(in Fixed left, in Fixed right)
     {
         return left.rawValue != right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine inequality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator !=(in Fixed left, in int right)
+    {
+        return left.rawValue != (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine inequality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator !=(in int left, in Fixed right)
+    {
+        return (long)left << 16 != right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <(in Fixed left, in Fixed right)
+    {
+        return left.rawValue < right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <(in Fixed left, in int right)
+    {
+        return left.rawValue < (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <(in int left, in Fixed right)
+    {
+        return (long)left << 16 < right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <=(in Fixed left, in Fixed right)
+    {
+        return left.rawValue <= right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <=(in Fixed left, in int right)
+    {
+        return left.rawValue <= (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is less or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is less than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator <=(in int left, in Fixed right)
+    {
+        return (long)left << 16 <= right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >(in Fixed left, in Fixed right)
+    {
+        return left.rawValue > right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >(in Fixed left, in int right)
+    {
+        return left.rawValue > (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >(in int left, in Fixed right)
+    {
+        return (long)left << 16 > right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >=(in Fixed left, in Fixed right)
+    {
+        return left.rawValue >= right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >=(in Fixed left, in int right)
+    {
+        return left.rawValue >= (long)right << 16;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine which is greater or equal.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is greater than or equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool operator >=(in int left, in Fixed right)
+    {
+        return (long)left << 16 >= right.rawValue;
     }
 
     /// <summary>
