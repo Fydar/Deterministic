@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace Fydar.Deterministic.Numerics;
@@ -8,7 +9,8 @@ namespace Fydar.Deterministic.Numerics;
 /// <remarks>
 /// <para>The <see cref="Fixed"/> value type represents a 64-bit number with values ranging <b>from</b> <c>-140,737,488,355,328.00000</c> <b>to</b> <c>-140,737,488,355,328.00000</c>.</para>
 /// </remarks>
-public readonly struct Fixed
+public readonly struct Fixed :
+    IEquatable<Fixed>
 {
     /// <summary>
     /// <para>Represents a zero value.</para>
@@ -55,10 +57,61 @@ public readonly struct Fixed
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public static Fixed Tau { get; } = new(411774L);
 
-    private readonly long rawValue;
+    internal readonly long rawValue;
 
     internal Fixed(in long rawValue)
     {
         this.rawValue = rawValue;
+    }
+
+    /// <summary>
+    /// <para>Returns a value indicating whether this instance is equal to a specified object.</para>
+    /// </summary>
+    /// <param name="obj">An object to compare with this instance.</param>
+    /// <returns><c>true</c> if <paramref name="obj"/> is an instance of <see cref="Fixed"> and equals the value of this instance; otherwise, <c>false</c>.</returns>
+    public override readonly bool Equals(object? obj)
+    {
+        return obj is Fixed other && Equals(other);
+    }
+
+    /// <summary>
+    /// <para>Returns a value indicating whether this instance and a specified <see cref="Fixed"/> object represent the same value.</para>
+    /// </summary>
+    /// <param name="obj">An object to compare with this instance.</param>
+    /// <returns><c>true</c> if <paramref name="obj"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+    public readonly bool Equals(Fixed obj)
+    {
+        return rawValue == obj.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Returns the hash code for this instance.</para>
+    /// </summary>
+    /// <returns>A 32-bit signed integer hash code.</returns>
+    public override readonly int GetHashCode()
+    {
+        return 621480157 + rawValue.GetHashCode();
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine equality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    public static bool operator ==(Fixed left, Fixed right)
+    {
+        return left.rawValue == right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Compares two values to determine inequality.</para>
+    /// </summary>
+    /// <param name="left">The value to compare with <paramref name="right"/>.</param>
+    /// <param name="right">The value to compare with <paramref name="left"/>.</param>
+    /// <returns><c>true</c> if <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, <c>false</c>.</returns>
+    public static bool operator !=(Fixed left, Fixed right)
+    {
+        return left.rawValue != right.rawValue;
     }
 }
