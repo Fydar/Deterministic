@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.35906.104
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fydar.Deterministic.Numerics", "Fydar.Deterministic.Numerics\Fydar.Deterministic.Numerics.csproj", "{C59E92D9-D5FA-43CB-8267-83A9CEA3F0D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fydar.Deterministic.Numerics.UnitTests", "Fydar.Deterministic.Numerics.UnitTests\Fydar.Deterministic.Numerics.UnitTests.csproj", "{70881AB8-4781-42C0-B2DF-7B41C66DD5A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C59E92D9-D5FA-43CB-8267-83A9CEA3F0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C59E92D9-D5FA-43CB-8267-83A9CEA3F0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C59E92D9-D5FA-43CB-8267-83A9CEA3F0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70881AB8-4781-42C0-B2DF-7B41C66DD5A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70881AB8-4781-42C0-B2DF-7B41C66DD5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70881AB8-4781-42C0-B2DF-7B41C66DD5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70881AB8-4781-42C0-B2DF-7B41C66DD5A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
