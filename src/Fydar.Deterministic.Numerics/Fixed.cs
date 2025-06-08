@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Fydar.Deterministic.Numerics;
 
@@ -113,5 +114,185 @@ public readonly struct Fixed :
     public static bool operator !=(Fixed left, Fixed right)
     {
         return left.rawValue != right.rawValue;
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="float"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator Fixed(in float value)
+    {
+        return new Fixed((long)(value * 65536.0f));
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="double"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator Fixed(in double value)
+    {
+        return new Fixed((long)(value * 65536.0));
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="decimal"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator Fixed(in decimal value)
+    {
+        return new Fixed((long)(value * 65536.0m));
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="byte"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in byte value)
+    {
+        return new Fixed((long)value << 16);
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="sbyte"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in sbyte value)
+    {
+        return new Fixed((long)value << 16);
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="int"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in int value)
+    {
+        return new Fixed((long)value << 16);
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="uint"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in uint value)
+    {
+        return new Fixed((long)value << 16);
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="long"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in long value)
+    {
+        return new Fixed(value << 16);
+    }
+
+    /// <summary>
+    /// <para>Implicitly converts <see cref="ulong"/> values to <see cref="Fixed"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to implicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Fixed(in ulong value)
+    {
+        return new Fixed((long)value << 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="byte"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator byte(in Fixed value)
+    {
+        return (byte)(value.rawValue >> 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="sbyte"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator sbyte(in Fixed value)
+    {
+        return (sbyte)(value.rawValue >> 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="int"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator int(in Fixed value)
+    {
+        return (int)(value.rawValue >> 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="uint"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator uint(in Fixed value)
+    {
+        return (uint)(value.rawValue >> 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="long"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator long(in Fixed value)
+    {
+        return value.rawValue >> 16;
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="ulong"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator ulong(in Fixed value)
+    {
+        return (ulong)(value.rawValue >> 16);
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="float"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator float(in Fixed value)
+    {
+        return value.rawValue / 65536.0f;
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="double"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator double(in Fixed value)
+    {
+        return value.rawValue / 65536.0;
+    }
+
+    /// <summary>
+    /// <para>Explicitly converts <see cref="Fixed"/> values to <see cref="decimal"/> numerics.</para>
+    /// </summary>
+    /// <param name="value">The value to explicitly convert.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator decimal(in Fixed value)
+    {
+        return value.rawValue / 65536.0m;
     }
 }
