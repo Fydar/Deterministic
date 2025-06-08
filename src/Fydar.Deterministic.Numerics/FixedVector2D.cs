@@ -7,8 +7,10 @@ namespace Fydar.Deterministic.Numerics;
 /// Represents a vector with two fixed-point values.
 /// </summary>
 /// <seealso cref="FixedVector3D"/>
+[DebuggerDisplay("{ToString(),nq}")]
 public readonly struct FixedVector2D :
-    IEquatable<FixedVector2D>
+    IEquatable<FixedVector2D>,
+    IFormattable
 {
     /// <summary>
     /// <para>Represents a vector whose two components are equal to zero.</para>
@@ -100,6 +102,48 @@ public readonly struct FixedVector2D :
     public override readonly int GetHashCode()
     {
         return HashCode.Combine(X, Y);
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation.</para>
+    /// </summary>
+    /// <returns>The string representation of the value of this instance.</returns>
+    public override readonly string ToString()
+    {
+        return $"({X}, {Y})";
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information.</para>
+    /// </summary>
+    /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="provider"/>.</returns>
+    public readonly string ToString(IFormatProvider provider)
+    {
+        return $"({X.ToString(provider)}, {Y.ToString(provider)})";
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation, using the specified format.</para>
+    /// </summary>
+    /// <param name="format">A numeric format string.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="format"/>.</returns>
+    /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
+    public readonly string ToString(string format)
+    {
+        return $"({X.ToString(format)}, {Y.ToString(format)})";
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information.</para>
+    /// </summary>
+    /// <param name="format">A numeric format string.</param>
+    /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="format"/> and <paramref name="provider"/>.</returns>
+    /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
+    public readonly string ToString(string format, IFormatProvider provider)
+    {
+        return $"({X.ToString(format, provider)}, {Y.ToString(format, provider)})";
     }
 
     /// <summary>

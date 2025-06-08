@@ -10,8 +10,10 @@ namespace Fydar.Deterministic.Numerics;
 /// <remarks>
 /// <para>The <see cref="Fixed"/> value type represents a 64-bit number with values ranging <b>from</b> <c>-140,737,488,355,328.00000</c> <b>to</b> <c>-140,737,488,355,328.00000</c>.</para>
 /// </remarks>
+[DebuggerDisplay("{ToString(),nq}")]
 public readonly struct Fixed :
-    IEquatable<Fixed>
+    IEquatable<Fixed>,
+    IFormattable
 {
     /// <summary>
     /// <para>Represents a zero value.</para>
@@ -92,6 +94,56 @@ public readonly struct Fixed :
     public override readonly int GetHashCode()
     {
         return 621480157 + rawValue.GetHashCode();
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation.</para>
+    /// </summary>
+    /// <returns>The string representation of the value of this instance.</returns>
+    public override readonly string ToString()
+    {
+        return $"{(double)this:###,##0.00000}";
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information.</para>
+    /// </summary>
+    /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="provider"/>.</returns>
+    public readonly string ToString(IFormatProvider provider)
+    {
+        return ((double)this).ToString(provider);
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation, using the specified format.</para>
+    /// </summary>
+    /// <param name="format">A numeric format string.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="format"/>.</returns>
+    /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
+    public readonly string ToString(string format)
+    {
+        if (string.IsNullOrEmpty(format))
+        {
+            format = "###,##0.00000";
+        }
+        return ((double)this).ToString(format);
+    }
+
+    /// <summary>
+    /// <para>Converts the numeric value of this instance to its equivalent string representation using the specified format and culture-specific format information.</para>
+    /// </summary>
+    /// <param name="format">A numeric format string.</param>
+    /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+    /// <returns>The string representation of the value of this instance as specified by <paramref name="format"/> and <paramref name="provider"/>.</returns>
+    /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
+    public readonly string ToString(string format, IFormatProvider provider)
+    {
+        if (string.IsNullOrEmpty(format))
+        {
+            format = "###,##0.00000";
+        }
+        return ((double)this).ToString(format, provider);
     }
 
     /// <summary>
