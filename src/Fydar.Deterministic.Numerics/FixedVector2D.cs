@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace Fydar.Deterministic.Numerics;
 
@@ -10,6 +11,48 @@ public readonly struct FixedVector2D :
     IEquatable<FixedVector2D>
 {
     /// <summary>
+    /// <para>Represents a vector whose two components are equal to zero.</para>
+    /// </summary>
+    /// <value><c>(0, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D Zero { get; } = new(0, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose two components are equal to one.</para>
+    /// </summary>
+    /// <value><c>(1, 1)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D One { get; } = new(1, 1);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to one and Y component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D Right { get; } = new(1, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to negative one and Y component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D Left { get; } = new(-1, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero and Y component is equal to one.</para>
+    /// </summary>
+    /// <value><c>(0, 1)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D Up { get; } = new(0, 1);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero and Y component is equal to negative one.</para>
+    /// </summary>
+    /// <value><c>(0, -1)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector2D Down { get; } = new(0, -1);
+
+    /// <summary>
     /// <para>The X component of the vector.</para>
     /// </summary>
     public readonly Fixed X { get; }
@@ -18,6 +61,17 @@ public readonly struct FixedVector2D :
     /// <para>The Y component of the vector.</para>
     /// </summary>
     public readonly Fixed Y { get; }
+
+    /// <summary>
+    /// Creates a vector whose elements have the specified values.
+    /// </summary>
+    /// <param name="x">The value to assign to the <see cref="X"/> property.</param>
+    /// <param name="y">The value to assign to the <see cref="Y"/> property.</param>
+    public FixedVector2D(in Fixed x, in Fixed y)
+    {
+        X = x;
+        Y = y;
+    }
 
     /// <summary>
     /// <para>Returns a value indicating whether this instance is equal to a specified object.</para>

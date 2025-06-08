@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace Fydar.Deterministic.Numerics;
 
@@ -9,6 +10,62 @@ namespace Fydar.Deterministic.Numerics;
 public readonly struct FixedVector3D :
     IEquatable<FixedVector3D>
 {
+    /// <summary>
+    /// <para>Represents a vector whose three components are equal to zero.</para>
+    /// </summary>
+    /// <value><c>(0, 0, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Zero { get; } = new(0, 0, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose three components are equal to one.</para>
+    /// </summary>
+    /// <value><c>(1, 1, 1)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D One { get; } = new(1, 1, 1);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to one and Y component is equal to zero, and Z component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(1, 0, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Right { get; } = new(1, 0, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to negative one and Y component is equal to zero, and Z component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(1, 0, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Left { get; } = new(-1, 0, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero, Y component is equal to one, and Z component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(0, 1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Up { get; } = new(0, 1, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero and Y component is equal to zero, and Z component is equal to zero.</para>
+    /// </summary>
+    /// <value><c>(0, -1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Down { get; } = new(0, -1, 0);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero and Y component is equal to zero, and Z component is equal to one.</para>
+    /// </summary>
+    /// <value><c>(0, -1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Forward { get; } = new(0, 0, 1);
+
+    /// <summary>
+    /// <para>Represents a vector whose X component is equal to zero and Y component is equal to zero, and Z component is equal to negative one.</para>
+    /// </summary>
+    /// <value><c>(0, -1, 0)</c></value>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static FixedVector3D Back { get; } = new(0, 0, -1);
+
     /// <summary>
     /// <para>The X component of the vector.</para>
     /// </summary>
@@ -23,6 +80,19 @@ public readonly struct FixedVector3D :
     /// <para>The Z component of the vector.</para>
     /// </summary>
     public readonly Fixed Z { get; }
+
+    /// <summary>
+    /// Creates a vector whose elements have the specified values.
+    /// </summary>
+    /// <param name="x">The value to assign to the <see cref="X"/> property.</param>
+    /// <param name="y">The value to assign to the <see cref="Y"/> property.</param>
+    /// <param name="z">The value to assign to the <see cref="Z"/> property.</param>
+    public FixedVector3D(in Fixed x, in Fixed y, in Fixed z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+    }
 
     /// <summary>
     /// <para>Returns a value indicating whether this instance is equal to a specified object.</para>
