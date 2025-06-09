@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 namespace Fydar.Deterministic.Numerics;
@@ -111,7 +112,8 @@ public readonly struct FixedVector2D :
     /// <returns>The string representation of the value of this instance.</returns>
     public override readonly string ToString()
     {
-        return $"({X}, {Y})";
+        string separator = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture).NumberGroupSeparator;
+        return $"<{X}{separator} {Y}>";
     }
 
     /// <summary>
@@ -121,7 +123,8 @@ public readonly struct FixedVector2D :
     /// <returns>The string representation of the value of this instance as specified by <paramref name="provider"/>.</returns>
     public readonly string ToString(IFormatProvider provider)
     {
-        return $"({X.ToString(provider)}, {Y.ToString(provider)})";
+        string separator = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture).NumberGroupSeparator;
+        return $"<{X.ToString(provider)}{separator} {Y.ToString(provider)}>";
     }
 
     /// <summary>
@@ -132,7 +135,8 @@ public readonly struct FixedVector2D :
     /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
     public readonly string ToString(string format)
     {
-        return $"({X.ToString(format)}, {Y.ToString(format)})";
+        string separator = NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture).NumberGroupSeparator;
+        return $"<{X.ToString(format)}{separator} {Y.ToString(format)}>";
     }
 
     /// <summary>
@@ -144,7 +148,8 @@ public readonly struct FixedVector2D :
     /// <exception cref="FormatException"><paramref name="format"/> is invalid.</exception>
     public readonly string ToString(string format, IFormatProvider provider)
     {
-        return $"({X.ToString(format, provider)}, {Y.ToString(format, provider)})";
+        string separator = NumberFormatInfo.GetInstance(provider).NumberGroupSeparator;
+        return $"<{X.ToString(format, provider)}{separator} {Y.ToString(format, provider)}>";
     }
 
     /// <summary>
