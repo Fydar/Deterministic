@@ -13,6 +13,8 @@ namespace Fydar.Deterministic.Numerics;
 [DebuggerDisplay("{ToString(),nq}")]
 public readonly struct Fixed :
     IEquatable<Fixed>,
+    IComparable,
+    IComparable<Fixed>,
     IFormattable
 {
     /// <summary>
@@ -171,6 +173,35 @@ public readonly struct Fixed :
     public static Fixed Clamp(in Fixed value, in Fixed min, in Fixed max)
     {
         return new Fixed(Math.Clamp(value.rawValue, min.rawValue, max.rawValue));
+    }
+
+
+    /// <summary>
+    /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>
+    /// </summary>
+    /// <param name="other">An <see cref="object"/> to compare, or <c>null</c>.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public readonly int CompareTo(object other)
+    {
+        var otherValue = other switch
+        {
+            Fixed value => value,
+            _ => throw new ArgumentException("Type is not comparable to Fixed.", nameof(other)),
+        };
+
+        return rawValue.CompareTo(otherValue.rawValue);
+    }
+
+    /// <summary>
+    /// <para>Compares this instance to a specified <see cref="Fixed"/> and returns an indication of their relative values.</para>
+    /// </summary>
+    /// <param name="other">A value to compare.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public readonly int CompareTo(Fixed other)
+    {
+        return rawValue.CompareTo(other.rawValue);
     }
 
     /// <summary>
