@@ -60,6 +60,7 @@ public readonly struct Fixed :
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public static Fixed Tau { get; } = new(411774L);
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     internal readonly long rawValue;
 
     internal Fixed(in long rawValue)
