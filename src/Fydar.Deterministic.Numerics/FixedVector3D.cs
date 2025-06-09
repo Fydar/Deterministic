@@ -250,7 +250,10 @@ public readonly struct FixedVector3D :
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static FixedVector3D operator -(in FixedVector3D value)
     {
-        return new FixedVector3D(-value.X, -value.Y, -value.Z);
+        return new FixedVector3D(
+            -value.X,
+            -value.Y,
+            -value.Z);
     }
 
     /// <summary>
@@ -626,7 +629,7 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
-    /// <para>Performs a bitwise **AND** operation on each component <see cref="Fixed"/> value.</para>
+    /// <para>Performs a bitwise AND operation on each component <see cref="Fixed"/> value.</para>
     /// </summary>
     /// <param name="left">The first <see cref="Fixed"/> value.</param>
     /// <param name="right">The second <see cref="Fixed"/> value.</param>
@@ -641,7 +644,7 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
-    /// <para>Performs a bitwise **OR** operation on each component <see cref="Fixed"/> value.</para>
+    /// <para>Performs a bitwise OR operation on each component <see cref="Fixed"/> value.</para>
     /// </summary>
     /// <param name="left">The first <see cref="Fixed"/> value.</param>
     /// <param name="right">The second <see cref="Fixed"/> value.</param>
@@ -656,7 +659,7 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
-    /// <para>Performs a bitwise **XOR** (exclusive OR) operation on each component <see cref="Fixed"/> value.</para>
+    /// <para>Performs a bitwise XOR (exclusive OR) operation on each component <see cref="Fixed"/> value.</para>
     /// </summary>
     /// <param name="left">The first <see cref="Fixed"/> value.</param>
     /// <param name="right">The second <see cref="Fixed"/> value.</param>
@@ -671,7 +674,7 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
-    /// <para>Performs a **left bit shift** operation on each component <see cref="Fixed"/> value.</para>
+    /// <para>Performs a left bit shift operation on each component <see cref="Fixed"/> value.</para>
     /// </summary>
     /// <remarks>
     /// Shifting a fixed-point number left by 'n' bits is equivalent to multiplying the fixed-point value by 2 raised to the power of 'n'.
@@ -690,7 +693,7 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
-    /// <para>Performs a **right bit shift** operation on each component <see cref="Fixed"/> value.</para>
+    /// <para>Performs a right bit shift operation on each component <see cref="Fixed"/> value.</para>
     /// </summary>
     /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
     /// <param name="right">The number of bits to shift right by.</param>
@@ -702,5 +705,20 @@ public readonly struct FixedVector3D :
             left.X.rawValue >> right,
             left.Y.rawValue >> right,
             left.Z.rawValue >> right);
+    }
+
+    /// <summary>
+    /// <para>Performs an unsigned right bit shift operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift right by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the unsigned right bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator >>>(in FixedVector3D left, in int right)
+    {
+        return new FixedVector3D(
+            left.X.rawValue >>> right,
+            left.Y.rawValue >>> right,
+            left.Z.rawValue >>> right);
     }
 }

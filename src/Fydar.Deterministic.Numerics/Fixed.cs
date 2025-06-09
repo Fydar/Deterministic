@@ -662,6 +662,18 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Performs an unsigned right bit shift operation on a <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift right by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the unsigned right bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator >>>(in Fixed left, in int right)
+    {
+        return new Fixed(left.rawValue >>> right);
+    }
+
+    /// <summary>
     /// <para>Compares two values to determine equality.</para>
     /// </summary>
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>

@@ -649,4 +649,18 @@ public readonly struct FixedVector2D :
             left.X.rawValue >> right,
             left.Y.rawValue >> right);
     }
+
+    /// <summary>
+    /// <para>Performs a **unsigned right bit shift** operation on each component <see cref="Fixed"/> value.</para>
+    /// </summary>
+    /// <param name="left">The <see cref="Fixed"/> value to shift.</param>
+    /// <param name="right">The number of bits to shift right by.</param>
+    /// <returns>A new <see cref="Fixed"/> instance representing the result of the unsigned right bit shift.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector2D operator >>>(in FixedVector2D left, in int right)
+    {
+        return new FixedVector2D(
+            left.X.rawValue >>> right,
+            left.Y.rawValue >>> right);
+    }
 }
