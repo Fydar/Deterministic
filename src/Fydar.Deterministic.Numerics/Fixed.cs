@@ -340,6 +340,169 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the unary negation of a value with overflow checking.</para>
+    /// </summary>
+    /// <param name="value">The value for which to compute the unary negation.</param>
+    /// <returns>The unary negation of <paramref name="value"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked -(in Fixed value)
+    {
+        return new Fixed(checked(-value.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Adds two values together to compute their sum with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked +(in Fixed left, in Fixed right)
+    {
+        return new Fixed(checked(left.rawValue + right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Adds a Fixed value and an int together to compute their sum with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked +(in Fixed left, in int right)
+    {
+        return new Fixed(checked(left.rawValue + ((long)right << 16)));
+    }
+
+    /// <summary>
+    /// <para>Adds an int and a Fixed value together to compute their sum with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked +(in int left, in Fixed right)
+    {
+        return new Fixed(checked(((long)left << 16) + right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values to compute their difference with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked -(in Fixed left, in Fixed right)
+    {
+        return new Fixed(checked(left.rawValue - right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Subtracts an int from a Fixed value to compute their difference with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked -(in Fixed left, in int right)
+    {
+        return new Fixed(checked(left.rawValue - ((long)right << 16)));
+    }
+
+    /// <summary>
+    /// <para>Subtracts a Fixed value from an int to compute their difference with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked -(in int left, in Fixed right)
+    {
+        return new Fixed(checked(((long)left << 16) - right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked *(in Fixed left, in Fixed right)
+    {
+        return new Fixed(checked((left.rawValue * right.rawValue) >> 16));
+    }
+
+    /// <summary>
+    /// <para>Multiplies a Fixed value and an int together to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked *(in Fixed left, in int right)
+    {
+        return new Fixed(checked(left.rawValue * right));
+    }
+
+    /// <summary>
+    /// <para>Multiplies an int and a Fixed value together to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked *(in int left, in Fixed right)
+    {
+        return new Fixed(checked(left * right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Divides one value by another to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked /(in Fixed left, in Fixed right)
+    {
+        return new Fixed(checked((left.rawValue << 16) / right.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Divides a Fixed value by an int to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked /(in Fixed left, in int right)
+    {
+        return new Fixed(checked(left.rawValue / right));
+    }
+
+    /// <summary>
+    /// <para>Divides an int by a Fixed value to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed operator checked /(in int left, in Fixed right)
+    {
+        return new Fixed(checked(((long)left << 32) / right.rawValue));
+    }
+
+    /// <summary>
     /// <para>Divides two values together to compute their modulus or remainder.</para>
     /// </summary>
     /// <param name="left">The value which <paramref name="right"/> divides.</param>

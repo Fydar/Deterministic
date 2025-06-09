@@ -248,7 +248,7 @@ public readonly struct FixedVector3D :
         return new FixedVector3D(
             left.X - right.X,
             left.Y - right.Y,
-            left.Y - right.Y);
+            left.Z - right.Z);
     }
 
     /// <summary>
@@ -399,6 +399,198 @@ public readonly struct FixedVector3D :
             left / right.X,
             left / right.Y,
             left / right.Z);
+    }
+
+    /// <summary>
+    /// <para>Adds two values together together to compute their sum with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value to which <paramref name="right"/> is added.</param>
+    /// <param name="right">The value which is added to <paramref name="left"/>.</param>
+    /// <returns>The sum of <paramref name="left"/> and <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked +(in FixedVector3D left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left.X + right.X),
+            checked(left.Y + right.Y),
+            checked(left.Z + right.Z));
+    }
+
+    /// <summary>
+    /// <para>Subtracts two values together to compute their difference with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value from which <paramref name="right"/> is subtracted.</param>
+    /// <param name="right">The value which is subtracted from <paramref name="left"/>.</param>
+    /// <returns>The value of <paramref name="right"/> subtracted from <paramref name="left"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked -(in FixedVector3D left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left.X - right.X),
+            checked(left.Y - right.Y),
+            checked(left.Z - right.Z)); 
+    }
+
+    /// <summary>
+    /// <para>Multiplies two values together together to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked *(in FixedVector3D left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left.X * right.X),
+            checked(left.Y * right.Y),
+            checked(left.Z * right.Z));
+    }
+
+    /// <summary>
+    /// <para>Multiplies a value by a Fixed value to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked *(in FixedVector3D left, in Fixed right)
+    {
+        return new FixedVector3D(
+            checked(left.X * right),
+            checked(left.Y * right),
+            checked(left.Z * right));
+    }
+
+    /// <summary>
+    /// <para>Multiplies a Fixed value by a value to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked *(in Fixed left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left * right.X),
+            checked(left * right.Y),
+            checked(left * right.Z));
+    }
+
+    /// <summary>
+    /// <para>Multiplies a value by an int to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked *(in FixedVector3D left, in int right)
+    {
+        return new FixedVector3D(
+            checked(left.X * right),
+            checked(left.Y * right),
+            checked(left.Z * right));
+    }
+
+    /// <summary>
+    /// <para>Multiplies an int by a value to compute their product with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> multiplies.</param>
+    /// <param name="right">The value which multiplies <paramref name="left"/>.</param>
+    /// <returns>The product of <paramref name="left"/> multiplied by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked *(in int left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left * right.X),
+            checked(left * right.Y),
+            checked(left * right.Z));
+    }
+
+    /// <summary>
+    /// <para>Divides one FixedVector3D by another FixedVector3D to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked /(in FixedVector3D left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left.X / right.X),
+            checked(left.Y / right.Y),
+            checked(left.Z / right.Z));
+    }
+
+    /// <summary>
+    /// <para>Divides a value by a Fixed value to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked /(in FixedVector3D left, in Fixed right)
+    {
+        return new FixedVector3D(
+            checked(left.X / right),
+            checked(left.Y / right),
+            checked(left.Z / right));
+    }
+
+    /// <summary>
+    /// <para>Divides a Fixed value by a value to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked /(in Fixed left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left / right.X),
+            checked(left / right.Y),
+            checked(left / right.Z));
+    }
+
+    /// <summary>
+    /// <para>Divides a value by an int to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked /(in FixedVector3D left, in int right)
+    {
+        return new FixedVector3D(
+            checked(left.X / right),
+            checked(left.Y / right),
+            checked(left.Z / right));
+    }
+
+    /// <summary>
+    /// <para>Divides an int by a value to compute their quotient with overflow checking.</para>
+    /// </summary>
+    /// <param name="left">The value which <paramref name="right"/> divides.</param>
+    /// <param name="right">The value which divides <paramref name="left"/>.</param>
+    /// <returns>The quotient of <paramref name="left"/> divided by <paramref name="right"/>.</returns>
+    /// <exception cref="OverflowException">The arithmetic operation results in an overflow.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static FixedVector3D operator checked /(in int left, in FixedVector3D right)
+    {
+        return new FixedVector3D(
+            checked(left / right.X),
+            checked(left / right.Y),
+            checked(left / right.Z));
     }
 
     /// <summary>
