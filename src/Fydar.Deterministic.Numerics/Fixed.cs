@@ -155,7 +155,8 @@ public readonly struct Fixed :
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Fixed Abs(in Fixed value)
     {
-        return new Fixed(Math.Abs(value.rawValue));
+        long mask = value.rawValue >> 63;
+        return new Fixed((value.rawValue + mask) ^ mask);
     }
 
     /// <summary>
