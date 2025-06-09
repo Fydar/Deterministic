@@ -175,6 +175,27 @@ public readonly struct Fixed :
         return new Fixed(Math.Clamp(value.rawValue, min.rawValue, max.rawValue));
     }
 
+    /// <summary>
+    /// <para>Compares two values to compute which is greater.</para>
+    /// </summary>
+    /// <param name="x">The value to compare with <paramref name="y"/>.</param>
+    /// <param name="y">The value to compare with <paramref name="x"/>.</param>
+    /// <returns><paramref name="x"/> if <paramref name="x"/> is greater than <paramref name="y"/>; otherwise, <paramref name="y"/>.</returns>
+    public static Fixed Max(in Fixed x, in Fixed y)
+    {
+        return new Fixed(Math.Max(x.rawValue, y.rawValue));
+    }
+
+    /// <summary>
+    /// <para>Compares two values to compute which is lesser.</para>
+    /// </summary>
+    /// <param name="x">The value to compare with <paramref name="y"/>.</param>
+    /// <param name="y">The value to compare with <paramref name="x"/>.</param>
+    /// <returns><paramref name="x"/> if <paramref name="x"/> is less than <paramref name="y"/>; otherwise, <paramref name="y"/>.</returns>
+    public static Fixed Min(in Fixed x, in Fixed y)
+    {
+        return new Fixed(Math.Min(x.rawValue, y.rawValue));
+    }
 
     /// <summary>
     /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>

@@ -174,6 +174,38 @@ public readonly struct FixedVector3D :
     }
 
     /// <summary>
+    /// <para>Returns a vector whose elements are the maximum of each of the pairs of elements in two specified vectors.</para>
+    /// </summary>
+    /// <param name="x">The first vector.</param>
+    /// <param name="y">The second vector.</param>
+    /// <returns>The maximized vector.</returns>
+    public static FixedVector3D Max(
+        in FixedVector3D x,
+        in FixedVector3D y)
+    {
+        return new FixedVector3D(
+            Fixed.Max(x.X, y.X),
+            Fixed.Max(x.Y, y.Y),
+            Fixed.Max(x.Z, y.Z));
+    }
+
+    /// <summary>
+    /// <para>Returns a vector whose elements are the minimum of each of the pairs of elements in two specified vectors.</para>
+    /// </summary>
+    /// <param name="x">The first vector.</param>
+    /// <param name="y">The second vector.</param>
+    /// <returns>The minimized vector.</returns>
+    public static FixedVector3D Min(
+        in FixedVector3D x,
+        in FixedVector3D y)
+    {
+        return new FixedVector3D(
+            Fixed.Min(x.X, y.X),
+            Fixed.Min(x.Y, y.Y),
+            Fixed.Min(x.Z, y.Z));
+    }
+
+    /// <summary>
     /// <para>Compares two values to determine equality.</para>
     /// </summary>
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>

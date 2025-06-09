@@ -153,6 +153,36 @@ public readonly struct FixedVector2D :
     }
 
     /// <summary>
+    /// <para>Returns a vector whose elements are the maximum of each of the pairs of elements in two specified vectors.</para>
+    /// </summary>
+    /// <param name="x">The first vector.</param>
+    /// <param name="y">The second vector.</param>
+    /// <returns>The maximized vector.</returns>
+    public static FixedVector2D Max(
+        in FixedVector2D x,
+        in FixedVector2D y)
+    {
+        return new FixedVector2D(
+            Fixed.Max(x.X, y.X),
+            Fixed.Max(x.Y, y.Y));
+    }
+
+    /// <summary>
+    /// <para>Returns a vector whose elements are the minimum of each of the pairs of elements in two specified vectors.</para>
+    /// </summary>
+    /// <param name="x">The first vector.</param>
+    /// <param name="y">The second vector.</param>
+    /// <returns>The minimized vector.</returns>
+    public static FixedVector2D Min(
+        in FixedVector2D x,
+        in FixedVector2D y)
+    {
+        return new FixedVector2D(
+            Fixed.Min(x.X, y.X),
+            Fixed.Min(x.Y, y.Y));
+    }
+
+    /// <summary>
     /// <para>Compares two values to determine equality.</para>
     /// </summary>
     /// <param name="left">The value to compare with <paramref name="right"/>.</param>
