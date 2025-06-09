@@ -148,6 +148,31 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the absolute of a value.</para>
+    /// </summary>
+    /// <param name="value">The value for which to get its absolute.</param>
+    /// <returns>The absolute of  <paramref name="value"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed Abs(in Fixed value)
+    {
+        return new Fixed(Math.Abs(value.rawValue));
+    }
+
+    /// <summary>
+    /// <para></para>
+    /// <para>Clamps a value to an inclusive minimum and maximum value.</para>
+    /// </summary>
+    /// <param name="value">The value to clamp.</param>
+    /// <param name="min">The inclusive minimum to which <paramref name="value"/> should clamp.</param>
+    /// <param name="max">The inclusive maximum to which <paramref name="value"/> should clamp.</param>
+    /// <returns>The result of clamping <paramref name="value"/> to the inclusive range of <paramref name="min"/> and <paramref name="max"/>.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Fixed Clamp(in Fixed value, in Fixed min, in Fixed max)
+    {
+        return new Fixed(Math.Clamp(value.rawValue, min.rawValue, max.rawValue));
+    }
+
+    /// <summary>
     /// <para>Computes the unary plus of a value.</para>
     /// </summary>
     /// <param name="value">The value for which to compute the unary plus.</param>
