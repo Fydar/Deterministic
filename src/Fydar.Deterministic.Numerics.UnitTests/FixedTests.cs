@@ -19,6 +19,20 @@ public class FixedTests
     }
 
     [Fact]
+    public void Sin()
+    {
+        // Arrange
+        // A value like π/4 (0.785398...) which should result in approx 0.7071
+        Fixed x = Fixed.Pi / 4;
+
+        // Act
+        Fixed result = Fixed.Sin(x);
+
+        // Assert
+        Assert.True(Math.Abs((double)result - 0.70710678) < 0.001);
+    }
+
+    [Fact]
     public void ApproximateTau()
     {
         // Arrange
