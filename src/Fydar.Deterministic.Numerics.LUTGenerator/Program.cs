@@ -7,5 +7,6 @@ internal class Program
     private static void Main(string[] args)
     {
         SineLookupTableGenerator.Generate("LUT/Sin.bin");
+        TanLookupTableGenerator.Generate("LUT/Tan.bin");
     }
 }

@@ -229,6 +229,24 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the tangent  of a value.</para>
+    /// </summary>
+    /// <param name="x">The value, in radians, whose sine is to be computed.</param>
+    /// <returns>The tangent  of <paramref name="x"/>.</returns>
+    public static Fixed Tan(in Fixed x)
+    {
+        var segmentSize = Pi / 2;
+        long segment = (x.rawValue / segmentSize.rawValue) & 0b_01;
+        var index = x.rawValue % segmentSize.rawValue;
+
+        return segment switch
+        {
+            0 => MathEngine.tan[index],
+            _ => -MathEngine.tan[segmentSize.rawValue - index],
+        };
+    }
+
+    /// <summary>
     /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>
     /// </summary>
     /// <param name="other">An <see cref="object"/> to compare, or <c>null</c>.</param>

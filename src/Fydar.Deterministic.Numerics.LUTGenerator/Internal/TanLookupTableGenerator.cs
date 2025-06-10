@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace Fydar.Deterministic.Numerics.LUTGenerator.Internal;
 
-internal class SineLookupTableGenerator
+internal class TanLookupTableGenerator
 {
     public static void Generate(string filePath)
     {
@@ -10,7 +10,7 @@ internal class SineLookupTableGenerator
 
         fileInfo.Directory?.Create();
 
-        GeneratorUtilities.WriteToFile(fileInfo, stream => WriteOperationRange(stream, Math.Sin, 0, Fixed.Pi / 2, Fixed.Epsilon));
+        GeneratorUtilities.WriteToFile(fileInfo, stream => WriteOperationRange(stream, Math.Tan, 0, Fixed.Pi / 2, Fixed.Epsilon));
     }
 
     internal static void WriteOperationRange(Stream stream, Func<double, double> operation, Fixed min, Fixed max, Fixed increment)
@@ -25,7 +25,7 @@ internal class SineLookupTableGenerator
         {
             var value = (Fixed)operation((double)Unsafe.As<long, Fixed>(ref i));
 
-            ushort writeValue = Unsafe.As<Fixed, ushort>(ref value);
+            long writeValue = Unsafe.As<Fixed, long>(ref value);
             binaryWriter.Write(writeValue);
         }
         binaryWriter.Flush();
