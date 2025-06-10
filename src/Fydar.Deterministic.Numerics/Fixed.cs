@@ -198,6 +198,37 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the sine of a value.</para>
+    /// </summary>
+    /// <param name="x">The value, in radians, whose sine is to be computed.</param>
+    /// <returns>The sine of <paramref name="x"/>.</returns>
+    public static Fixed Sin(in Fixed x)
+    {
+        var segmentSize = Pi / 2;
+        long segment = (x.rawValue / segmentSize.rawValue) & 0b_11;
+        var index = x.rawValue % segmentSize.rawValue;
+
+        return segment switch
+        {
+            0 => new Fixed(MathEngine.sin[index]),
+            1 => new Fixed(MathEngine.sin[segmentSize.rawValue - index]),
+            2 => new Fixed(-MathEngine.sin[index]),
+            _ => new Fixed(-MathEngine.sin[segmentSize.rawValue - index])
+        };
+    }
+
+    /// <summary>
+    /// <para>Computes the cosine of a value.</para>
+    /// </summary>
+    /// <param name="x">The value, in radians, whose cosine is to be computed.</param>
+    /// <returns>The cosine of <paramref name="x"/>.</returns>
+    public static Fixed Cos(in Fixed d)
+    {
+        var piOverTwo = Pi / 2;
+        return Sin(d + piOverTwo);
+    }
+
+    /// <summary>
     /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>
     /// </summary>
     /// <param name="other">An <see cref="object"/> to compare, or <c>null</c>.</param>
