@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="LUT\Sin.bin" />
+    <EmbeddedResource Include="LUT\Asin.bin" />
     <EmbeddedResource Include="LUT\Tan.bin" />
   </ItemGroup>
 

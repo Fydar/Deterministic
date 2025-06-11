@@ -247,6 +247,33 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the arc-sine of a value.</para>
+    /// </summary>
+    /// <param name="x">The value, in radians, whose arc-sine is to be computed.</param>
+    /// <returns>The arc-sine of <paramref name="x"/>.</returns>
+    public static Fixed Asin(in Fixed x)
+    {
+        long segment = (x.rawValue >> 16) & 0b_01;
+        var index = x.rawValue & 65535L;
+
+        return segment switch
+        {
+            0 => new Fixed(MathEngine.asin[index]),
+            _ => new Fixed(-MathEngine.asin[65535 - index]),
+        };
+    }
+
+    /// <summary>
+    /// <para>Computes the arc-cosine of a value.</para>
+    /// </summary>
+    /// <param name="x">The value, in radians, whose arc-cosine is to be computed.</param>
+    /// <returns>The arc-cosine of <paramref name="x"/>.</returns>
+    public static Fixed Acos(in Fixed x)
+    {
+        return Asin(-x) + (Pi / 2);
+    }
+
+    /// <summary>
     /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>
     /// </summary>
     /// <param name="other">An <see cref="object"/> to compare, or <c>null</c>.</param>

@@ -6,10 +6,12 @@ internal static class MathEngine
 {
     internal static readonly ushort[] sin;
     internal static readonly Fixed[] tan;
+    internal static readonly int[] asin;
 
     static MathEngine()
     {
         sin = LoadUShorts("Fydar.Deterministic.Numerics.LUT.Sin.bin");
+        asin = LoadIntegers("Fydar.Deterministic.Numerics.LUT.Asin.bin");
         tan = Load("Fydar.Deterministic.Numerics.LUT.Tan.bin");
     }
 
@@ -20,6 +22,16 @@ internal static class MathEngine
 
         var data = new ushort[stream.Length / 2];
         stream.Read(MemoryMarshal.Cast<ushort, byte>(data));
+        return data;
+    }
+
+    private static int[] LoadIntegers(string resourceName)
+    {
+        var assembly = typeof(MathEngine).Assembly;
+        var stream = assembly.GetManifestResourceStream(resourceName);
+
+        var data = new int[stream.Length / 4];
+        stream.Read(MemoryMarshal.Cast<int, byte>(data));
         return data;
     }
 

@@ -8,5 +8,6 @@ internal class Program
     {
         SineLookupTableGenerator.Generate("LUT/Sin.bin");
         TanLookupTableGenerator.Generate("LUT/Tan.bin");
+        ArcSineLookupTableGenerator.Generate("LUT/Asin.bin");
     }
 }
