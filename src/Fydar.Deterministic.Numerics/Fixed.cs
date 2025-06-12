@@ -1,6 +1,8 @@
+using Fydar.Deterministic.Numerics.Internal;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace Fydar.Deterministic.Numerics;
 
@@ -10,6 +12,8 @@ namespace Fydar.Deterministic.Numerics;
 /// <remarks>
 /// <para>The <see cref="Fixed"/> value type represents a 64-bit number with values ranging <b>from</b> <c>-140,737,488,355,328.00000</c> <b>to</b> <c>-140,737,488,355,328.00000</c>.</para>
 /// </remarks>
+[Serializable]
+[StructLayout(LayoutKind.Sequential)]
 [DebuggerDisplay("{ToString(),nq}")]
 public readonly struct Fixed :
     IEquatable<Fixed>,
@@ -24,6 +28,14 @@ public readonly struct Fixed :
     /// <seealso cref="MinValue"/>
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public static Fixed Zero { get; } = new(0L);
+
+    /// <summary>
+    /// <para>Represents a one value.</para>
+    /// </summary>
+    /// <value><c>1</c></value>
+    /// <seealso cref="MinValue"/>
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public static Fixed One { get; } = new(65536L);
 
     /// <summary>
     /// <para>Represents the smallest possible value of <see cref="Fixed"/>.</para>
