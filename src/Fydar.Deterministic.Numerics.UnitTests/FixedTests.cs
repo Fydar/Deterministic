@@ -46,6 +46,18 @@ public class FixedTests
     }
 
     [Fact]
+    public void ApproximateRoot2()
+    {
+        Assert.Equal("1.4142", Fixed.Sqrt(2).ToString("0.0000"));
+    }
+
+    [Fact]
+    public void Root0Equals0()
+    {
+        Assert.Equal((Fixed)0, Fixed.Sqrt(0));
+    }
+
+    [Fact]
     public void Divide()
     {
         Assert.Equal(12, (Fixed)12 / (Fixed)1);

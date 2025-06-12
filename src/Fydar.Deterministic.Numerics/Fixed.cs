@@ -274,6 +274,51 @@ public readonly struct Fixed :
     }
 
     /// <summary>
+    /// <para>Computes the square-root of a value.</para>
+    /// </summary>
+    /// <param name="x">The value whose square-root is to be computed.</param>
+    /// <returns>The square-root of <paramref name="x"/>.</returns>
+    public static Fixed Sqrt(in Fixed x)
+    {
+        if (x == Zero)
+        {
+            return Zero;
+        }
+
+        var abs = Abs(x);
+        bool isLessThanOne = abs.rawValue < 65535L;
+        long iterationValue = abs.rawValue;
+        if (isLessThanOne)
+        {
+            iterationValue <<= 16;
+        }
+
+        int timedReduced = 0;
+        while (iterationValue > 262144L)
+        {
+            timedReduced++;
+            iterationValue >>= 2;
+        }
+
+        long lutIndex = (iterationValue - 65536L) >> 1;
+        if (lutIndex >= 65536L)
+        {
+            lutIndex = 65535L;
+        }
+        else if (lutIndex < 0)
+        {
+            lutIndex = 0L;
+        }
+
+        iterationValue = ((long)MathEngine.sqrt[lutIndex] << timedReduced) + 65535L;
+        if (isLessThanOne)
+        {
+            iterationValue >>= 8;
+        }
+        return new Fixed(iterationValue);
+    }
+
+    /// <summary>
     /// <para>Compares this instance to a specified object and returns an indication of their relative values.</para>
     /// </summary>
     /// <param name="other">An <see cref="object"/> to compare, or <c>null</c>.</param>
